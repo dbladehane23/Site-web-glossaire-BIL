@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Département de Valorisation - Banque Internationale de Luxembourg</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d1b3d;
+            background: linear-gradient(135deg, #f8f6fc 0%, #ede8f5 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #6a4c93 0%, #8b5a96 50%, #a373b0 100%);
+            color: white;
+            padding: 40px 0;
+            box-shadow: 0 4px 20px rgba(106, 76, 147, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0 20L100 0v20z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 100px 20px;
+            animation: wave 20s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: #e8d5f0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+
+        /* Section Styles */
+        .main-section {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(106, 76, 147, 0.1);
+            border: 1px solid rgba(167, 115, 176, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .main-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(106, 76, 147, 0.15);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #7b5aa6 0%, #9968b8 100%);
+            color: white;
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .section-header:hover::before {
+            left: 100%;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, #8b6bb8 0%, #a978ca 100%);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .toggle-icon {
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .section-content {
+            padding: 30px;
+            background: white;
+        }
+
+        /* Subsection Styles */
+        .subsection {
+            margin-bottom: 25px;
+            border: 1px solid rgba(167, 115, 176, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fdfcfe;
+        }
+
+        .subsection-header {
+            background: linear-gradient(135deg, #c8a8d8 0%, #d4b5e3 100%);
+            color: #4a2c5a;
+            padding: 18px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .subsection-header:hover {
+            background: linear-gradient(135deg, #d2b4e0 0%, #dcc2e8 100%);
+        }
+
+        .subsection-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .subsection-content {
+            padding: 25px;
+            background: white;
+            display: none;
+            border-top: 1px solid rgba(167, 115, 176, 0.1);
+        }
+
+        /* Lexicon Styles */
+        .lexicon-entry {
+            margin-bottom: 20px;
+            border: 1px solid rgba(167, 115, 176, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fdfdfe;
+        }
+
+        .lexicon-header {
+            background: linear-gradient(135deg, #e8ddf0 0%, #f0e6f7 100%);
+            color: #4a2c5a;
+            padding: 12px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(167, 115, 176, 0.08);
+        }
+
+        .lexicon-header:hover {
+            background: linear-gradient(135deg, #ede2f5 0%, #f4ebfa 100%);
+        }
+
+        .lexicon-term {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #6a4c93;
+        }
+
+        .lexicon-number {
+            background: #a373b0;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .lexicon-content {
+            padding: 15px 20px;
+            background: white;
+            display: none;
+            line-height: 1.7;
+        }
+
+        .lexicon-content p {
+            margin-bottom: 10px;
+            color: #4a2c5a;
+        }
+
+        .lexicon-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .lexicon-content li {
+            margin-bottom: 5px;
+            color: #4a2c5a;
+        }
+
+        /* Typography */
+        h3 {
+            color: #6a4c93;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #7b5aa6;
+            margin-bottom: 12px;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #4a2c5a;
+            line-height: 1.7;
+        }
+
+        ul {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #4a2c5a;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: #6a4c93;
+            font-weight: 600;
+        }
+
+        /* Special Content Styles */
+        .methodology-detail {
+            background: linear-gradient(135deg, #f5f0fa 0%, #ede8f5 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #a373b0;
+        }
+
+        .premium-section, .discount-section {
+            background: #fcfaff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid rgba(167, 115, 176, 0.2);
+        }
+
+        .premium-section h4 {
+            color: #6a4c93;
+        }
+
+        .discount-section h4 {
+            color: #8b5a96;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4a2c5a 0%, #6a4c93 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            color: #e8d5f0;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-header, .subsection-header {
+                padding: 20px;
+            }
+            
+            .section-content, .subsection-content {
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .subsection-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-header, .subsection-header {
+                padding: 15px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .toggle-icon {
+                align-self: flex-end;
+            }
+        }
+
+        /* Animation and Interaction Effects */
+        .main-section, .subsection, .lexicon-entry {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-header:active, .subsection-header:active, .lexicon-header:active {
+            transform: scale(0.98);
+        }
+
+        /* Template Styles */
+        .template-container {
+            background: #f8f6fc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(106, 76, 147, 0.1);
+        }
+
+        .template-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .template-image-container a {
+            display: block;
+            position: relative;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .template-image-container a:hover {
+            box-shadow: 0 6px 20px rgba(106, 76, 147, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .template-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 2px solid rgba(167, 115, 176, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .template-image-container a:hover .template-image {
+            filter: brightness(1.05);
+        }
+
+        .template-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(106, 76, 147, 0.9));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .overlay-content h3 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .overlay-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .bil-logo {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .template-instructions {
+            background: white;
+            padding: 20px;
+            border-top: 1px solid rgba(167, 115, 176, 0.1);
+        }
+
+        .template-instructions p {
+            margin: 8px 0;
+            color: #4a2c5a;
+            font-size: 0.9rem;
+        }
+
+        .template-instructions p:first-child {
+            font-weight: 600;
+            color: #6a4c93;
+            margin-bottom: 12px;
+        }
+
+        .template-instructions code {
+            background: #f0e6f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #6a4c93;
+            font-size: 0.85rem;
+        }
+
+        /* Legacy template styles - keeping for backwards compatibility */
+        .template-preview {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .template-preview:hover {
+            box-shadow: 0 6px 20px rgba(106, 76, 147, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="main-title">Département de Valorisation</h1>
+            <h2 class="subtitle">Banque Internationale de Luxembourg</h2>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Template de rapport Section -->
+            <section class="main-section">
+                <div class="section-header" onclick="toggleSection('template')">
+                    <h2 class="section-title">Template de rapport d'évaluation résidentiel</h2>
+                    <span class="toggle-icon" id="template-icon">▼</span>
+                </div>
+                <div class="section-content" id="template-content">
+                    <div class="template-container">
+                       
+                        
+                        <!-- Expanded view -->
+                        <div class="template-expanded-view" id="template-expanded">
+                            <div class="expanded-header">
+                                <h3>Template de rapport d'évaluation résidentiele</h3>
+                                
+                            </div>
+                            <div class="expanded-image">
+                                <!-- Same image but larger -->
+                                <img src="template resi.JPG"
+                                     alt="Template de rapport d'évaluation résidentiel - Agrandie" 
+                                     class="expanded-template-image" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Immobilier Résidentiel Section -->
+            <section class="main-section">
+                <div class="section-header" onclick="toggleSection('residential')">
+                    <h2 class="section-title">Valorisation Immobilier Résidentiel</h2>
+                    <span class="toggle-icon" id="residential-icon">▼</span>
+                </div>
+                <div class="section-content" id="residential-content">
+                    <!-- Lexique Résidentiel -->
+                    <div class="subsection">
+                        <div class="subsection-header" onclick="toggleSubsection('lexicon-residential')">
+                            <h3 class="subsection-title">Lexique des Termes Immobiliers Résidentiels</h3>
+                            <span class="toggle-icon" id="lexicon-residential-icon">▶</span>
+                        </div>
+                        <div class="subsection-content" id="lexicon-residential-content">
+                            <p>Définitions des termes techniques utilisés dans l'évaluation immobilière résidentielle :</p>
+                            
+                            <!-- Lexicon entries from Excel data -->
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-1')">
+                                    <span class="lexicon-term">Adresse</span>
+                                    <span class="lexicon-number">1</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-1-content">
+                                    <p>Adresse complète du bien, incluant si possible le code postal, la localité, la rue ainsi que le numéro de rue. Ces éléments permettent d'identifier précisément l'emplacement du bien.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-2')">
+                                    <span class="lexicon-term">Motif de la demande</span>
+                                    <span class="lexicon-number">2</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-2-content">
+                                    <p>Raison pour laquelle une évaluation du bien est sollicitée. Le motif permet de contextualiser l'analyse de la valeur du bien. Ci-dessous la liste des motifs possibles :</p>
+                                    <ul>
+                                        <li>Acquisition</li>
+                                        <li>Augmentation</li>
+                                        <li>Crédit Pont</li>
+                                        <li>Prolongation</li>
+                                        <li>Switch</li>
+                                        <li>Reprise Financement</li>
+                                        <li>Révision</li>
+                                        <li>Garantie</li>
+                                        <li>Autre</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-3')">
+                                    <span class="lexicon-term">Secteur</span>
+                                    <span class="lexicon-number">3</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-3-content">
+                                    <p>Désigne l'usage principal du bien immobilier concerné. Il peut s'agir d'un usage résidentiel, commercial, industriel, agricole ou mixte. Cette information est essentielle pour déterminer les critères d'évaluation et les méthodes d'analyse adaptées à la nature du bien.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-4')">
+                                    <span class="lexicon-term">Section/Quartier</span>
+                                    <span class="lexicon-number">4</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-4-content">
+                                    <p>Subdivision cadastrale d'une commune, utilisée pour identifier les parcelles foncières. Chaque section est désignée par une lettre ou un nom, et peut être associée à un quartier ou une localité spécifique. Elle constitue, avec le numéro de parcelle, un élément essentiel de la référence cadastrale au Luxembourg.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-5')">
+                                    <span class="lexicon-term">Commune</span>
+                                    <span class="lexicon-number">5</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-5-content">
+                                    <p>Subdivision locale où se situe le bien. Le Luxembourg compte actuellement 100 communes, qui représentent l'échelon administratif de base. Une commune peut regrouper une ou plusieurs localités ou villes.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-6')">
+                                    <span class="lexicon-term">Canton</span>
+                                    <span class="lexicon-number">6</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-6-content">
+                                    <p>Subdivision territoriale où se situe le bien. Le Luxembourg est actuellement divisé en 12 cantons, qui constituent l'échelon administratif supérieur entre l'État et les communes.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-7')">
+                                    <span class="lexicon-term">Distance à la gare de Luxembourg</span>
+                                    <span class="lexicon-number">7</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-7-content">
+                                    <p>Distance séparant le bien de la gare centrale de Luxembourg-Ville, exprimée en kilomètres. Cette mesure permet d'évaluer l'accessibilité ferroviaire du bien.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-8')">
+                                    <span class="lexicon-term">Nom Résidence</span>
+                                    <span class="lexicon-number">8</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-8-content">
+                                    <p>Désignation du nom officiel d'un ensemble résidentiel, d'un immeuble ou d'une copropriété. Terme utilisé pour identifier un bâtiment ou un complexe d'habitation, notamment dans les annonces immobilières et les documents administratifs.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-9')">
+                                    <span class="lexicon-term">N° cadastral</span>
+                                    <span class="lexicon-number">9</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-9-content">
+                                    <p>Le numéro cadastral est un identifiant unique attribué à chaque parcelle de terrain par l'administration cadastrale. Il permet de localiser précisément un bien immobilier dans les registres officiels et est utilisé pour des démarches administratives, fiscales et juridiques.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-10')">
+                                    <span class="lexicon-term">Surface terrain(s)</span>
+                                    <span class="lexicon-number">10</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-10-content">
+                                    <p>Désigne la superficie totale de la parcelle cadastrale en mètres carrés ou de la somme des parcelles cadastrales concernées. Elle est essentielle pour évaluer la valeur d'un bien, déterminer les possibilités de construction et calculer les taxes foncières.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-11')">
+                                    <span class="lexicon-term">Régime foncier</span>
+                                    <span class="lexicon-number">11</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-11-content">
+                                    <p>Désigne l'ensemble des règles juridiques et administratives qui encadrent la propriété et l'utilisation des terres. Il peut inclure des notions comme le droit de propriété, les servitudes, les baux fonciers et les réglementations d'urbanisme.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-12')">
+                                    <span class="lexicon-term">Occupation</span>
+                                    <span class="lexicon-number">12</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-12-content">
+                                    <p>Désigne l'utilisation d'un bien immobilier par un locataire. C'est un indicateur utilisé dans l'immobilier commercial ou résidentiel pour mesurer le pourcentage de surfaces occupées par rapport à celles disponibles.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-13')">
+                                    <span class="lexicon-term">N° Lots</span>
+                                    <span class="lexicon-number">13</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-13-content">
+                                    <p>Le numéro de lot désigne l'identifiant attribué à chaque unité d'une copropriété. Il permet de distinguer les différentes parties d'un bien immobilier, comme les appartements, caves, parkings ou locaux commerciaux. Chaque lot possède un numéro unique inscrit dans l'état descriptif de division de la copropriété.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-14')">
+                                    <span class="lexicon-term">Millièmes de copropriété</span>
+                                    <span class="lexicon-number">14</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-14-content">
+                                    <p>Les millièmes de copropriété représentent la part indivise de chaque copropriétaire dans les parties communes d'un immeuble. Ils sont exprimés en millièmes (1/1000) et servent à déterminer la répartition des charges de copropriété ainsi que les droits de vote en assemblée générale.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-15')">
+                                    <span class="lexicon-term">Type de bien</span>
+                                    <span class="lexicon-number">15</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-15-content">
+                                    <p>Catégorie à laquelle appartient le logement, comme appartement, maison, studio, duplex, etc. Elle permet d'établir un référentiel pour les points de comparaison.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-16')">
+                                    <span class="lexicon-term">Étage du bien</span>
+                                    <span class="lexicon-number">16</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-16-content">
+                                    <p>Niveau auquel se situe le logement dans un immeuble.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-17')">
+                                    <span class="lexicon-term">Nombre d'étages</span>
+                                    <span class="lexicon-number">17</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-17-content">
+                                    <p>Nombre total de niveaux que comporte un bâtiment, y compris le rez-de-chaussée, les sous-sols et les étages supérieurs.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-18')">
+                                    <span class="lexicon-term">Surface habitable</span>
+                                    <span class="lexicon-number">18</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-18-content">
+                                    <p>La surface habitable est l'ensemble des parties de plancher liées aux usages principaux d'un bâtiment conforme aux critères d'habitabilité en vigueur.</p>
+                                    <p><strong>La surface habitable comprend notamment :</strong></p>
+                                    <ul>
+                                        <li>les pièces à vivre (salon, chambre, cuisine, dressing, etc.)</li>
+                                        <li>les pièces d'eau (salle de bain, sanitaires, etc.)</li>
+                                        <li>les dégagements intérieurs (couloirs, escaliers, etc.)</li>
+                                    </ul>
+                                    <p><strong>La surface habitable ne comprend pas :</strong></p>
+                                    <ul>
+                                        <li>les parties communes</li>
+                                        <li>les parties de pièces de moins de 2 mètres de hauteur sous plafond</li>
+                                        <li>les murs, éléments porteurs et les cloisons</li>
+                                        <li>les embrasures de portes et les fenêtres</li>
+                                        <li>les combles et/ou mezzanines inutilisables</li>
+                                        <li>les caves, garages</li>
+                                        <li>les terrasses, loggias, balcons</li>
+                                        <li>les vérandas non chauffées</li>
+                                        <li>les gaines techniques et locaux techniques</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-19')">
+                                    <span class="lexicon-term">Source des surfaces</span>
+                                    <span class="lexicon-number">19</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-19-content">
+                                    <p>Source depuis laquelle les surfaces ont été extraites. Seuls des documents officiels tels que des plans, extraits cadastraux ou relevés d'architectes peuvent être acceptés.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-20')">
+                                    <span class="lexicon-term">Date de construction</span>
+                                    <span class="lexicon-number">20</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-20-content">
+                                    <p>Année à laquelle le bâtiment a été initialement construit.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-21')">
+                                    <span class="lexicon-term">Dernière rénovation</span>
+                                    <span class="lexicon-number">21</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-21-content">
+                                    <p>Date à laquelle des travaux de remise en état ou de modernisation ont été effectués sur le bien ou sur une partie de celui-ci.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-29')">
+                                    <span class="lexicon-term">Terrasse</span>
+                                    <span class="lexicon-number">29</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-29-content">
+                                    <p>Espace extérieur attenant à un logement, situé au même niveau que l'un des étages et généralement accessible depuis une pièce principale. Elle est souvent réalisée en matériaux durables (béton, carrelage, bois) et est en principe non couverte. La terrasse constitue un atout valorisant dans l'évaluation d'un bien immobilier.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-30')">
+                                    <span class="lexicon-term">Cave</span>
+                                    <span class="lexicon-number">30</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-30-content">
+                                    <p>Local situé en sous-sol ou en rez-de-chaussée, destiné au stockage. Elle est généralement non chauffée, non aménagée, et peut être privative ou commune. Sa surface n'est pas prise en compte dans la surface habitable.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-31')">
+                                    <span class="lexicon-term">Ascenseur</span>
+                                    <span class="lexicon-number">31</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-31-content">
+                                    <p>Équipement mécanique permettant de desservir les différents niveaux d'un immeuble. Sa présence est un critère de confort et d'accessibilité, notamment dans les copropriétés de plusieurs étages. Elle influence la valeur vénale du bien si ce dernier ne se situe pas au rez-de-chaussée.</p>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-35')">
+                                    <span class="lexicon-term">Standing</span>
+                                    <span class="lexicon-number">35</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-35-content">
+                                    <p>Niveau de qualité globale d'un bien immobilier, évalué à partir des matériaux utilisés, des équipements, des finitions, des prestations ainsi que de l'environnement immédiat. Le standing est un indicateur qualitatif qui peut être classé selon les catégories suivantes :</p>
+                                    <ul>
+                                        <li><strong>Standard - :</strong> prestations de base, qualité d'exécution ou d'entretien inférieure à la moyenne</li>
+                                        <li><strong>Standard :</strong> prestations courantes, conformes aux normes usuelles du marché</li>
+                                        <li><strong>Standard + :</strong> prestations légèrement supérieures à la moyenne, avec quelques éléments de confort ou de finition valorisants</li>
+                                        <li><strong>Haut de gamme :</strong> prestations de qualité supérieure, matériaux nobles, équipements complets et environnement valorisant</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="lexicon-entry">
+                                <div class="lexicon-header" onclick="toggleLexicon('lexicon-57')">
+                                    <span class="lexicon-term">Base de valeur - Valeur Vénale</span>
+                                    <span class="lexicon-number">57</span>
+                                </div>
+                                <div class="lexicon-content" id="lexicon-57-content">
+                                    <p>La valeur vénale représente le prix estimé auquel un bien immobilier pourrait être vendu sur le marché, à la date de l'évaluation, dans des conditions normales de libre marché. Elle suppose une transaction entre un vendeur consentant et un acquéreur librement informé, sans contrainte particulière, après une exposition raisonnable sur le marché.</p>
+                                    <p><strong>Caractéristiques principales :</strong></p>
+                                    <ul>
+                                        <li>Elle reflète l'état du marché immobilier local au moment de l'évaluation</li>
+                                        <li>Elle exclut toute valeur affective ou spéculative</li>
+                                        <li>Elle est indépendante de la situation personnelle du vendeur ou de l'acheteur</li>
+                                        <li>Elle est déterminée par comparaison avec des ventes récentes de biens similaires, ajustées selon les caractéristiques propres du bien évalué</li>
+                                    </ul>
+                                    <p><strong>Utilisation :</strong> La valeur vénale constitue la référence principale pour les évaluations à des fins de vente, de financement, de fiscalité, de partage ou d'assurance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Banque Internationale de Luxembourg - Département de Valorisation</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const icon = document.getElementById(sectionId + '-icon');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                icon.textContent = '▲';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '▼';
+            }
+        }
+
+        function toggleSubsection(subsectionId) {
+            const content = document.getElementById(subsectionId + '-content');
+            const icon = document.getElementById(subsectionId + '-icon');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                icon.textContent = '▼';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '▶';
+            }
+        }
+
+        function toggleLexicon(lexiconId) {
+            const content = document.getElementById(lexiconId + '-content');
+            const header = content.previousElementSibling;
+            const icon = header.querySelector('.lexicon-number');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                icon.style.backgroundColor = '#7b5aa6';
+            } else {
+                content.style.display = 'none';
+                icon.style.backgroundColor = '#a373b0';
+            }
+        }
+
+        function toggleTemplateExpanded() {
+            const expandedView = document.getElementById('template-expanded');
+            
+            if (expandedView.classList.contains('active')) {
+                expandedView.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else {
+                expandedView.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close expanded view when clicking outside the content
+        document.addEventListener('click', function(event) {
+            const expandedView = document.getElementById('template-expanded');
+            const expandedContent = expandedView.querySelector('.expanded-header, .expanded-image, .image-instructions');
+            
+            if (expandedView.classList.contains('active') && 
+                !event.target.closest('.expanded-header, .expanded-image, .image-instructions, .template-image-container')) {
+                expandedView.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Handle escape key to close expanded view
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const expandedView = document.getElementById('template-expanded');
+                if (expandedView.classList.contains('active')) {
+                    expandedView.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+
+     // Initialize all sections as expanded
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = ['template', 'residential'];
+            sections.forEach(section => {
+                const content = document.getElementById(section + '-content');
+                const icon = document.getElementById(section + '-icon');
+                if (content && icon) {
+                    content.style.display = 'none';
+                    icon.textContent = '▲';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
